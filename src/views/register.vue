@@ -10,15 +10,6 @@
           class="form-text text-muted"
         >your name should be more than 2 characters</small>
       </div>
-
-      <div class="inputStatusUser">
-        <label for="inputStatusUser">userName</label>
-        <input type="text" class="inputStatus" placeholder="input status" v-model="status" />
-        <small
-          id="title-small"
-          class="form-text text-muted"
-        >your status should be more than 2 characters</small>
-      </div>
     </form>
   </div>
 </template>
@@ -32,11 +23,8 @@ export default {
       userName: "",
       status: "",
       token: "",
-      dataContainer: {
-        name: this.userName,
-        status: this.status,
-        createdAt: new Date()
-      },
+      name: this.userName,
+      token: "",
       loginStatus: false
     };
   },
@@ -55,14 +43,14 @@ export default {
 
           let alpha = "abcdefghijklmnopqrstuvwxyz";
           let randomToken = "";
+          this.token = randomToken;
           for (let i = 0; i < 5; i++) {
             let random = Math.floor(Math.random() * alpha.length);
             randomToken += alpha[random];
           }
           let obj = {
-            name: this.dataContainer.name,
-            status: this.dataContainer.status,
-            token: randomToken
+            name: this.name,
+            token: this.token
           };
           localStorage.setItem(obj);
         })
