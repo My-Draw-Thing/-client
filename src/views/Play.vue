@@ -13,14 +13,15 @@
 </template>
 
 <script>
-import db from "@/apis/firebase";
+import db from '@/apis/firebase'
+const {quizilla, questions} = db
 
 export default {
   name: "play",
   data() {
     return {
       // Dari state / localstorage
-      roomID: "enMBB2kvUvFQyg0d3gQb" || "defaultAcakKaloBelumMasukRoom",
+      roomID: localStorage.getItem('roomID') ||"defaultAcakKaloBelumMasukRoom",
       token: {},
       isRoomMaster: false,
       
@@ -32,13 +33,13 @@ export default {
     getDataGame() {
       this.token = JSON.parse(localStorage.getItem("token"));
       
-      db.collection("quizilla")
+      quizilla
         .doc(this.roomID)
         .onSnapshot(snapshot => {
           if (snapshot.data()) {
             let roomData = snapshot.data();
             this.game = roomData;
-            console.log(roomData);
+            // console.log(roomData);
             this.isRoomMaster = (this.token.token === this.game.roomMaster.token) ? true : false;
             
             // Cek apakah merupakan member / siRoomMaster
@@ -56,16 +57,19 @@ export default {
                 this.$router.push('game');
               }
             } else {
+              
+                this.$router.push('lobby');
               console.log("Kamu tidak memiliki hak maen di room ini");
             }
           } else {
             // Redirect ke menu utama
+              this.$router.push('lobby');            
             console.log("Room tidak ada");
           }
         });
     },
     play() {
-      db.collection("questions").get()
+      questions.get()
       .then((data) => {
         let tmpQuestion = [];
         data.forEach(el => {
@@ -77,13 +81,13 @@ export default {
           tmpQuestion.push(tmp)
         });
         
-        db.collection("quizilla")
+        quizilla
           .doc(this.roomID)
           .update({isPlay: true, questions: { answare: tmpQuestion[0].answare, correct: tmpQuestion[0].correct, image: tmpQuestion[0].image, question: tmpQuestion[0].question }});
           
         this.$store.commit('addQuestions', tmpQuestion)
         
-        console.log(this.$store.state.questions[0].correct);
+        // console.log(this.$store.state.questions[0].correct);
       }).catch((err) => {
         
       });
@@ -91,6 +95,8 @@ export default {
   },
   created() {
     this.getDataGame();
+    
+    this.roomID = this.$store.state.roomId;
   }
 };
 </script>

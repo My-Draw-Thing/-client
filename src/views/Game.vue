@@ -74,11 +74,13 @@ export default {
                 this.$router.push('play');
               }
             } else {
-              console.log("Kamu tidak memiliki hak maen di room ini");
+                this.$router.push('lobby');              
+              // console.log("Kamu tidak memiliki hak maen di room ini");
             }
           } else {
             // Redirect ke menu utama
-            console.log("Room tidak ada");
+                this.$router.push('lobby');            
+            // console.log("Room tidak ada");
           }
         });
     },

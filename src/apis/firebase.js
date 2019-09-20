@@ -1,5 +1,6 @@
-import firebase from '@/config/configFirebase';
+import db from '@/configs/firebase'
 
-const db = firebase.firestore();
+const quizilla = db.collection('quizilla')
+const questions = db.collection('questions')
 
-export default db;
+export default { quizilla, questions}
