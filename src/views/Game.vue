@@ -1,14 +1,6 @@
 <template>
   <div>
-    Play the game
-    <br>
-    <br>    
-    <strong>List Players</strong>
-    <ul>
-      <li v-for="game in game.users" :key="game.token">{{game.name}}</li>
-    </ul>
-    
-    <button @click="play" v-if="isRoomMaster">Start</button>
+      das
   </div>
 </template>
 
@@ -52,8 +44,8 @@ export default {
             
             if(found || this.isRoomMaster) {
               // Ok bisa maen
-              if(this.game.isPlay) {
-                this.$router.push('game');
+              if(this.game.isPlay === false) {
+                this.$router.push('play');
               }
             } else {
               console.log("Kamu tidak memiliki hak maen di room ini");
@@ -64,10 +56,18 @@ export default {
           }
         });
     },
-    play() {
-      db.collection("quizilla")
-        .doc(this.roomID)
-        .update({isPlay: true})
+    getQuestions() {
+      db.collection("questions").get()
+      .then((data) => {
+        let tmpQuestion = [];
+        data.forEach(el => {
+          tmpQuestion.push(el.data());
+        });
+
+        console.log(tmpQuestion);
+      }).catch((err) => {
+        
+      });
     }
   },
   created() {
@@ -77,4 +77,5 @@ export default {
 </script>
 
 <style>
+
 </style>
