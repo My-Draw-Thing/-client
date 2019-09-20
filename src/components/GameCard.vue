@@ -2,9 +2,12 @@
   <div>
     <div class="w-64 h-32 bg-gray-400 rounded flex m-2">
       <div class="w-4/6 flex flex-col justify-center pl-3">
-        <div>Game ID : {{ game.id }}</div>
         <div>
-          Room Master:
+          <span class="font-bold">Room Name</span> : <br />
+          {{ game.id }}
+        </div>
+        <div>
+          <span class="font-bold"> Room Master </span> :
           <br />
           {{ game.roomMaster.name }}
         </div>
@@ -28,6 +31,7 @@ export default {
       quizilla.doc(this.game.id).update({
         members: firebase.firestore.FieldValue.arrayUnion(this.user)
       })
+      this.$store.commit('getUser', this.user)
       this.$router.push('game')
     }
   }

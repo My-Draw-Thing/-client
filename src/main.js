@@ -7,6 +7,12 @@ import '@/assets/css/tw-output.css'
 
 Vue.config.productionTip = false
 
+Vue.prototype.$playSound = (path, volume = 1) => {
+  var audio = new Audio(path);
+  audio.volume = volume
+  audio.play();
+}
+
 new Vue({
   router,
   store,
