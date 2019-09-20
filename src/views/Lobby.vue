@@ -18,7 +18,7 @@
       </button>
     </div>
     <div class="h-auto flex flex-col items-center justify-center font-hairline">
-      <div class="container bg-purple-700 flex flex-wrap overflow-y-auto rounded">
+      <div class="container bg-purple-600 flex flex-wrap overflow-y-auto rounded">
         <div v-for="game in games" :key="game.id">
           <GameCard :game="game" :user="user"></GameCard>
         </div>

@@ -29,7 +29,7 @@ export default {
   methods: {
     joinRoom() {
       quizilla.doc(this.game.id).update({
-        members: firebase.firestore.FieldValue.arrayUnion(this.user)
+        users: firebase.firestore.FieldValue.arrayUnion(this.user)
       })
       this.$store.commit('getUser', this.user)
       this.$router.push('game')
