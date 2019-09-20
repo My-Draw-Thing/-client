@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       // Dari state / localstorage
-      roomID: localStorage.getItem('roomID') ||"defaultAcakKaloBelumMasukRoom",
+      roomID: localStorage.getItem('roomID') || "defaultAcakKaloBelumMasukRoom",
       token: {},
       isRoomMaster: false,
       
@@ -80,7 +80,7 @@ export default {
           
           tmpQuestion.push(tmp)
         });
-        
+        console.log(this.roomID);
         quizilla
           .doc(this.roomID)
           .update({isPlay: true, questions: { answare: tmpQuestion[0].answare, correct: tmpQuestion[0].correct, image: tmpQuestion[0].image, question: tmpQuestion[0].question }});
@@ -96,7 +96,7 @@ export default {
   created() {
     this.getDataGame();
     
-    this.roomID = this.$store.state.roomId;
+    // this.roomID = this.$store.state.roomId;
   }
 };
 </script>

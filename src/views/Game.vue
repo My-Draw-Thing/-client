@@ -20,7 +20,9 @@
 </template>
 
 <script>
-import db from "@/apis/firebase";
+import db from '@/apis/firebase'
+const {quizilla, questions} = db
+
 import firebase from 'firebase';
 
 export default {
@@ -28,7 +30,7 @@ export default {
   data() {
     return {
       // Dari state / localstorage
-      roomID: "enMBB2kvUvFQyg0d3gQb" || "defaultAcakKaloBelumMasukRoom",
+      roomID: localStorage.getItem('roomID') || "defaultAcakKaloBelumMasukRoom",
       token: {},
       isRoomMaster: false,
       
@@ -46,7 +48,7 @@ export default {
     getDataGame() {
       this.token = JSON.parse(localStorage.getItem("token"));
       
-      db.collection("quizilla")
+      quizilla
         .doc(this.roomID)
         .onSnapshot(snapshot => {
           if (snapshot.data()) {
@@ -88,7 +90,7 @@ export default {
       if(answare === this.game.questions.correct) {
         let getLocalToken = JSON.parse(localStorage.getItem('token'));
         
-        db.collection("quizilla")
+        quizilla
         .doc(this.roomID)
         .update({
           corrects: firebase.firestore.FieldValue.arrayUnion(getLocalToken)
@@ -111,7 +113,7 @@ export default {
       this.round++;
       let dataNow = this.getQuestionsState[this.round];
       
-      db.collection("quizilla")
+      quizilla
           .doc(this.roomID)
           .update({isPlay: true, questions: { answare: dataNow.answare, correct: dataNow.correct, image: dataNow.image, question: dataNow.question }});
           
