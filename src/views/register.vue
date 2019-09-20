@@ -52,24 +52,21 @@ export default {
         })
         .then(data => {
           console.log("berhasil masuk kesini");
-          let obj = {
-            name: this.dataContainer.name,
-            status: this.dataContainer.status
-          };
+
           let alpha = "abcdefghijklmnopqrstuvwxyz";
           let randomToken = "";
           for (let i = 0; i < 5; i++) {
             let random = Math.floor(Math.random() * alpha.length);
-            
             randomToken += alpha[random];
           }
-
-          localStorage.setItem({
-            randomToken,
-            obj
-          });
+          let obj = {
+            name: this.dataContainer.name,
+            status: this.dataContainer.status,
+            token: randomToken
+          };
+          localStorage.setItem(obj);
         })
-        .catch(err => {
+        .catch(err => { 
           console.log(err, "<<< INI ERRNYA");
         });
     }
