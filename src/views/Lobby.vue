@@ -33,7 +33,6 @@
 <script>
 import GameCard from '../components/GameCard'
 import CreateRoomModal from '../components/CreateRoomModal'
-import Game from '../views/Game'
 import quizilla from '@/apis/firebase'
 import { Howl, Howler } from 'howler'
 import AudioPlayer from '../components/AudioPlayer'
@@ -43,7 +42,6 @@ export default {
   components: {
     GameCard,
     CreateRoomModal,
-    Game,
     AudioPlayer
   },
   data() {
@@ -87,8 +85,12 @@ export default {
   },
   created() {
     const userData = localStorage.getItem('token')
-    this.user = JSON.parse(localStorage.getItem('token'))
-    console.log(this.user)
+    if (userData) {
+      this.user = JSON.parse(localStorage.getItem('token'))
+      console.log(this.user)
+    } else {
+      this.$router.push('/')
+    }
   },
   mounted() {
     this.fetchRooms()
