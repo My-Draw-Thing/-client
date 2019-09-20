@@ -65,20 +65,25 @@ export default {
         });
     },
     play() {
-      
       db.collection("questions").get()
       .then((data) => {
         let tmpQuestion = [];
         data.forEach(el => {
-          tmpQuestion.push(el.data());
+          let tmp = {
+            id: el.id,
+            ...el.data()
+          }
+          
+          tmpQuestion.push(tmp)
         });
-    
-    
+        
         db.collection("quizilla")
           .doc(this.roomID)
-          .update({isPlay: true, questions: { answare: tmpQuestion[0].answare, correct: tmpQuestion[0].correct, image: tmpQuestion[0].image, question: tmpQuestion[0].question }})
+          .update({isPlay: true, questions: { answare: tmpQuestion[0].answare, correct: tmpQuestion[0].correct, image: tmpQuestion[0].image, question: tmpQuestion[0].question }});
           
         this.$store.commit('addQuestions', tmpQuestion)
+        
+        console.log(this.$store.state.questions[0].correct);
       }).catch((err) => {
         
       });
