@@ -66,7 +66,7 @@ export default {
           };
           localStorage.setItem(obj);
         })
-        .catch(err => { 
+        .catch(err => {
           console.log(err, "<<< INI ERRNYA");
         });
     }
