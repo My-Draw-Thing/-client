@@ -65,9 +65,23 @@ export default {
         });
     },
     play() {
-      db.collection("quizilla")
-        .doc(this.roomID)
-        .update({isPlay: true})
+      
+      db.collection("questions").get()
+      .then((data) => {
+        let tmpQuestion = [];
+        data.forEach(el => {
+          tmpQuestion.push(el.data());
+        });
+    
+    
+        db.collection("quizilla")
+          .doc(this.roomID)
+          .update({isPlay: true, questions: { answare: tmpQuestion[0].answare, correct: tmpQuestion[0].correct, image: tmpQuestion[0].image, question: tmpQuestion[0].question }})
+          
+        this.$store.commit('addQuestions', tmpQuestion)
+      }).catch((err) => {
+        
+      });
     }
   },
   created() {

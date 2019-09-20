@@ -1,6 +1,19 @@
 <template>
   <div>
-      das
+      
+      <img :src="game.questions.image" alt="img">
+      
+      <p>{{game.questions.question}}</p>
+      
+      <div v-if="isRoomMaster">
+          Bukan Master <br>
+          <button v-for="answare in game.questions.answare" :key="'bukanmaster'+answare">{{answare}}</button>
+      </div>
+      
+      <div  v-if="isRoomMaster">
+          Master view <br>
+      <span v-for="answare in game.questions.answare" :key="'master'+answare">{{answare}} | </span>
+      </div>
   </div>
 </template>
 
@@ -15,6 +28,8 @@ export default {
       roomID: "enMBB2kvUvFQyg0d3gQb" || "defaultAcakKaloBelumMasukRoom",
       token: {},
       isRoomMaster: false,
+      
+      questions: [],
       
       // Info room
       game: {}
@@ -55,19 +70,6 @@ export default {
             console.log("Room tidak ada");
           }
         });
-    },
-    getQuestions() {
-      db.collection("questions").get()
-      .then((data) => {
-        let tmpQuestion = [];
-        data.forEach(el => {
-          tmpQuestion.push(el.data());
-        });
-
-        console.log(tmpQuestion);
-      }).catch((err) => {
-        
-      });
     }
   },
   created() {
