@@ -3,6 +3,7 @@
     <CreateRoomModal
       @createRoom="createRoom"
       :createRoomStatus="createRoomStatus"
+      :user="user"
     ></CreateRoomModal>
     <div class="w-full h-64 flex flex-col justify-center items-center font-hairline amatic">
       <div class="text-6xl">
@@ -18,7 +19,9 @@
       </button>
     </div>
     <div class="h-auto flex flex-col items-center justify-center font-hairline">
-      <div class="container bg-purple-600 flex flex-wrap overflow-y-auto rounded">
+      <div
+        class="container bg-purple-600 border-4 border-black flex flex-wrap overflow-y-auto rounded"
+      >
         <div v-for="game in games" :key="game.id">
           <GameCard :game="game" :user="user"></GameCard>
         </div>
@@ -82,6 +85,11 @@ export default {
     //   console.log(sound)
     // }
   },
+  created() {
+    const userData = localStorage.getItem('token')
+    this.user = JSON.parse(localStorage.getItem('token'))
+    console.log(this.user)
+  },
   mounted() {
     this.fetchRooms()
   }
@@ -90,7 +98,7 @@ export default {
 
 <style scoped>
 .container {
-  width: 816px;
+  width: 825cpx;
   height: 434px;
 }
 </style>

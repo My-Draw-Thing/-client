@@ -25,11 +25,11 @@ import quizilla from '@/apis/firebase'
 
 export default {
   name: 'createRoom',
-  props: ['createRoomStatus'],
+  props: ['createRoomStatus', 'user'],
   data() {
     return {
-      token: 'this is token',
-      name: 'William',
+      token: '',
+      name: '',
       roomName: ''
     }
   },
@@ -54,6 +54,10 @@ export default {
       console.log('masuk')
       this.$emit('createRoom', false)
     }
+  },
+  created() {
+    this.token = this.user.token
+    this.name = this.user.name
   }
 }
 </script>
