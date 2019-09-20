@@ -17,14 +17,8 @@
         answer: ['aminah', 'siti', 'jaenab', 'ayu']
     },
     {
-        picture: './picture/cropfile/crop3.jpg',
-        question: 'berkacamata rambutku agak panjang dan bernafas siapakah aku',
-        correctAnswer: 'ayu',
-        answer: ['aminah', 'siti', 'jaenab', 'ayu']
-    },
-    {
         picture: './picture/cropfile/crop4.jpg',
-        question: 'berkacamata rambutku kulitku putih siapakah aku aku',
+        question: 'berkacamata rambutku kulitku putih siapakah aku',
         correctAnswer: 'savero',
         answer: ['nori', 'benyamin', 'basuki', 'savero']
     },

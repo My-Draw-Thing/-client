@@ -9,6 +9,7 @@
           id="title-small"
           class="form-text text-muted"
         >your name should be more than 2 characters</small>
+        <button></button>
       </div>
     </form>
   </div>
@@ -32,31 +33,21 @@ export default {
     register() {
       // nanti dirubah aja nama collectionnya disesuaikan dengan yg di firebase
 
-      db.collection("")
-        .add({
-          name: this.dataContainer.userName,
-          status: this.dataContainer.status,
-          createdAt: this.dataContainer.createdAt
-        })
-        .then(data => {
-          console.log("berhasil masuk kesini");
+      let alpha = "abcdefghijklmnopqrstuvwxyz";
+      let randomToken = "";
+      for (let i = 0; i < 5; i++) {
+        let random = Math.floor(Math.random() * alpha.length);
+        randomToken += alpha[random];
+      }
 
-          let alpha = "abcdefghijklmnopqrstuvwxyz";
-          let randomToken = "";
-          this.token = randomToken;
-          for (let i = 0; i < 5; i++) {
-            let random = Math.floor(Math.random() * alpha.length);
-            randomToken += alpha[random];
-          }
-          let obj = {
-            name: this.name,
-            token: this.token
-          };
-          localStorage.setItem(obj);
-        })
-        .catch(err => {
-          console.log(err, "<<< INI ERRNYA");
-        });
+      this.token = randomToken;
+
+      let obj = {
+        name: this.userName,
+        token: this.token
+      };
+      localStorage.setItem("token", obj.token);
+      localStorage.setItem("name", obj.name);
     }
   }
 };
